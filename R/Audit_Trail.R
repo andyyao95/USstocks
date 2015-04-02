@@ -21,14 +21,14 @@ total.daily <- rbind(
   daily.1998, daily.1999, daily.2000, daily.2001, daily.2002, daily.2003, daily.2004, daily.2005, daily.2006, daily.2007)
 
 #saving the data
-save(total.daily, file = "total.daily.RData")
+#save(total.daily, file = "total.daily.RData")
 
 #--------------------------------------------#
 
 #2. Include the secref data.frame
 data(secref)
 company.id <- secref
-save(secref, file = "secref.RData")
+#save(secref, file = "secref.RData")
 
 #--------------------------------------------#
 
@@ -43,4 +43,4 @@ library(plyr)
 yearly.data <- arrange(yearly.data, year)
 
 #saving the data
-save(yearly.data, file = "yearly.data.RData")
+#save(yearly.data, file = "yearly.data.RData")
