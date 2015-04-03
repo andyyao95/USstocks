@@ -14,15 +14,14 @@
 #testframe[,"cap.usd"] <- NA
 
 
-#INDEX LIKE THIS: testframe[1,][,"m.sec"], where testframe[1,] represents the first row
-
-
+#EVERYTHING WITHIN HERE INCLUDES CODE THAT PUTS THE SECREF INFORMATION ONTO THE FINAL FRAME BY YEAR 
+########################################
 #1. Sort the daily.1998 frame by company ID
 library(plyr)
 daily.1998 <- arrange(daily.1998, id)
 
-#create empty company id index vector
-company_id <- numeric()
+#create the first index
+company_id <- 1
 
 #initializing counter
 current_company <- daily.1998[1,"id"]
@@ -82,12 +81,26 @@ final_1998 <- daily.1998
 final_1998["m.sec"] <- ""
 final_1998["m.ind"] <- ""
 
+#Check for NA? 
 for (i in 1:length(company_id)) {
   
-  #fix out of index error at the end
-  final_1998[c(company_id[i]: company_id[i+1]-1), "m.sec"] <- temp_secref[i, "m.sec"]
-  final_1998[c(company_id[i]: company_id[i+1]-1), "m.ind"] <- temp_secref[i, "m.ind"]
+  if (i != length(company_id)) {
+    #fix out of index error at the end
+    final_1998[c(company_id[i]: company_id[i+1]-1), "m.sec"] <- temp_secref[i, "m.sec"]
+    final_1998[c(company_id[i]: company_id[i+1]-1), "m.ind"] <- temp_secref[i, "m.ind"]
+  }
+  
+  #fixed
+  else {
+    final_1998[c(company_id[i]: length(final_1998$id)), "m.sec"] <- temp_secref[i, "m.sec"]
+    final_1998[c(company_id[i]: length(final_1998$id)), "m.ind"] <- temp_secref[i, "m.ind"]
+    
+  }
+  
 }
+
+################################################################
+#THE CODE BELOW IS TOO INEFFICIENT, SO I HAD TO FIND METHODS (LIKE THE ONES ABOVE) TO EFFICIENTLY ITERATE THROUGH THE DATA.FRAMES
 
 #iterating through the testframe
 #for (j in 1:length(testframe$id)) {
