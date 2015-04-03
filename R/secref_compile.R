@@ -18,23 +18,23 @@
 
 
 #1. Sort the daily.1998 frame by company ID
-#library(plyr)
-#daily.1998 <- arrange(daily.1998, id)
+library(plyr)
+daily.1998 <- arrange(daily.1998, id)
 
 #create empty company id index vector
-#company_id <- numeric()
+company_id <- numeric()
 
 #initializing counter
-#current_company <- daily.1998[1,"id"]
+current_company <- daily.1998[1,"id"]
 
-#for (i in 1:length(daily.1998$id)) {
+for (i in 1:length(daily.1998$id)) {
   
-#  if (daily.1998[i, "id"] != current_company) {
-#    company_id <- c(company_id, i)
-#    current_company <- daily.1998[i, "id"]
-#  }
-#  
-#}
+  if (daily.1998[i, "id"] != current_company) {
+    company_id <- c(company_id, i)
+    current_company <- daily.1998[i, "id"]
+  }
+  
+}
 
 #now, reorganize the secref so that 
 
@@ -76,6 +76,17 @@ for (i in 1:length(x)){ #length(x)) {
     temp_secref[i, ] <- secref_1998[counter, ]
     counter <- counter + 1 
   }
+}
+
+final_1998 <- daily.1998
+final_1998["m.sec"] <- ""
+final_1998["m.ind"] <- ""
+
+for (i in 1:length(company_id)) {
+  
+  #fix out of index error at the end
+  final_1998[c(company_id[i]: company_id[i+1]-1), "m.sec"] <- temp_secref[i, "m.sec"]
+  final_1998[c(company_id[i]: company_id[i+1]-1), "m.ind"] <- temp_secref[i, "m.ind"]
 }
 
 #iterating through the testframe
