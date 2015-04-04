@@ -33,7 +33,7 @@ stocks %>%
   filter(symbol == "IBM") %>%
   summarize(mean_volume = mean(volume))
 
-stocks %>% 
+stocks %>%  
   filter(symbol == "MSFT") %>%
   summarise_each(funs(mean, median), volume, volume.unadj, price, price.unadj)
 
