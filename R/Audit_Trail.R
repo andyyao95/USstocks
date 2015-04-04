@@ -36,3 +36,5 @@ stocks <- left_join(stocks, temp_yearly, by = c("id", "year"))
 
 #5. And voila, stocks is the final data frame which we want
 
+#Use the following command to save the data as Rdata
+#save(stocks, file = "stocks.RData")
