@@ -11,7 +11,7 @@ library(ggplot2)
 library(USstocks)
 data(stocks)
 
-###If we want to look a specific stock and its performance:
+###If we want to look at a specific stock and its performance:
 
 #all of the years
 filter(stocks, symbol == "MSFT")
@@ -28,8 +28,39 @@ stocks %>%
   arrange(v.date) %>%
   ggplot() + geom_point(aes(x = v.date, y = price.unadj, shape = "price unadjusted", colour = "price unadjusted")) + geom_point(aes(x = v.date, y = price, shape = "price", colour = "price")) 
 
+##Example of Key Statistics
+stocks %>% 
+  filter(symbol == "IBM") %>%
+  summarize(mean_volume = mean(volume))
 
+stocks %>% 
+  filter(symbol == "MSFT") %>%
+  summarise_each(funs(mean, median), volume, volume.unadj, price, price.unadj)
 
+###If you only want certain parts of the stock, it is very easy to do 
+#with the filter() function in dplyr
 
+stocks  %>% 
+  filter(top.1500 == "TRUE", volume > 100000, year == 2000) %>%
+  tbl_df
 
+##Visualizing returns
+#Notice that there are some far outliers in our dataset
 
+stocks  %>% group_by(v.date)  %>% 
+  summarize(sd_ret = sd(tret, na.rm = TRUE))  %>% 
+  ggplot(aes(v.date, sd_ret)) + geom_point()
+
+## We can use the following command to examine these outliers
+stocks  %>% 
+  select(-id) %>% 
+  filter(row_number(desc(tret)) < 10) %>% 
+  arrange(desc(tret))
+
+stocks  %>% filter(tret > 50)
+
+##Creating a local variable, and then we can mess around with the local variables by deleting outliers
+
+unwanted <- filter(stocks, tret > 50)
+x <- stocks
+x <- filter(x, ! symbol %in% unwanted$symbol)
