@@ -2,7 +2,7 @@ library(ws.data)
 library(dplyr)
 library(lubridate)
 
-#1. Making a daily data set that includes 1998-2007
+#1. Making a daily data set that includes all of 1998-2007
 
 #import the data
 data(daily.1998)
@@ -24,5 +24,15 @@ stocks <- rbind(
 #2. Including the information from secref
 data(secref)
 temp_secref <- select(secref, id, m.sec, m.ind)
-stocks <- left_join(stocks, temp_secref)
+stocks <- left_join(stocks, temp_secref, by = "id")
+
+#3. Using lubridate to create a year variable in stocks (from the previous v-date variable)
+stocks <- mutate(stocks, year = year(ymd(v.date)))
+
+#4. Now, we simply merge the information from yearly onto the final frame
+data(yearly)
+temp_yearly <- select(yearly, id, cap.usd, top.1500, year)
+stocks <- left_join(stocks, temp_yearly, by = c("id", "year"))
+
+#5. And voila, stocks is the final data frame which we want
 
