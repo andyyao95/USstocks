@@ -61,3 +61,83 @@ yearly_2004 <- yearly.data[yr_2004, ]
 yearly_2005 <- yearly.data[yr_2005, ]
 yearly_2006 <- yearly.data[yr_2006, ]
 yearly_2007 <- yearly.data[yr_2007, ]
+
+
+
+#------------------------------#
+########################################
+#1. Sort the daily.1998 frame by company ID
+library(plyr)
+daily.1998 <- arrange(daily.1998, id)
+
+#create the first index
+company_id <- 1
+
+#initializing counter
+current_company <- daily.1998[1,"id"]
+
+for (i in 1:length(daily.1998$id)) {
+  
+  if (daily.1998[i, "id"] != current_company) {
+    company_id <- c(company_id, i)
+    current_company <- daily.1998[i, "id"]
+  }
+  
+}
+
+#now, obtain the sorted company ids  
+library(ws.data)
+data(daily.1998)
+y <- sort(daily.1998$id)
+y <- unique(y)
+
+byyear_1998 <- arrange(yearly_1998, id)
+
+#just getting the correct dimensions
+temp_yearly <- byyear_1998[1:length(y), ]
+counter <- 1
+
+#temp_secref is a sorted data.frame that contains ONLY the stocks that appeared in daily.1998
+#print statements were used for debugging...
+for (i in 1:length(x)){ #length(x)) {
+  
+  #check if the IDs match  
+  if (x[i] == byyear_1998[counter, "id"]) {
+    #move onto the next ID 
+    temp_yearly[i, ] <- byyear_1998[counter, ]
+    counter <- counter + 1 
+  }
+  
+  else {
+    while(x[i] != byyear_1998[counter, "id"]){
+      counter <- counter + 1 
+    }
+    
+    temp_yearly[i, ] <- byyear_1998[counter, ]
+    counter <- counter + 1 
+  }
+}
+
+#final_1998 <- daily.1998
+final_1998["cap.usd"] <- ""
+final_1998["top.1500"] <- ""
+
+#Check for NA? 
+for (i in 1:length(company_id)) {
+  
+  if (i != length(company_id)) {
+    #fix out of index error at the end
+    final_1998[c(company_id[i]: company_id[i+1]-1), "cap.usd"] <- temp_yearly[i, "cap.usd"]
+    final_1998[c(company_id[i]: company_id[i+1]-1), "top.1500"] <- temp_yearly[i, "top.1500"]
+  }
+  
+  #fixed
+  else {
+    final_1998[c(company_id[i]: length(final_1998$id)), "cap.usd"] <- temp_yearly[i, "cap.usd"]
+    final_1998[c(company_id[i]: length(final_1998$id)), "top.1500"] <- temp_yearly[i, "top.1500"]
+    
+  }
+  
+}
+
+################################################################
