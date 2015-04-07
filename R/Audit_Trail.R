@@ -23,7 +23,7 @@ stocks <- rbind(
 
 #2. Including the information from secref
 data(secref)
-temp_secref <- select(secref, id, m.sec, m.ind)
+temp_secref <- select(secref, id, m.sec, m.ind, name)
 stocks <- left_join(stocks, temp_secref, by = "id")
 
 #3. Using lubridate to create a year variable in stocks (from the previous v-date variable)
@@ -37,4 +37,4 @@ stocks <- left_join(stocks, temp_yearly, by = c("id", "year"))
 #5. And voila, stocks is the final data frame which we want
 
 #Use the following command to save the data as Rdata
-#save(stocks, file = "stocks.RData")
+save(stocks, file = "stocks.RData")
