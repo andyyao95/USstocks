@@ -1,9 +1,9 @@
 Package: USstocks
 Type: Package
-Title: What the package does (short line)
+Title: contains daily US Stock data from 1998-2007
 Version: 1.0
 Date: 2015-04-02
-Author: Who wrote it
+Author: David Kane, Duncan Cummings, Andy Yu Zhu Yao
 Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: More about what it does (maybe more than one line)
 License: What license is it under?
