@@ -1,0 +1,37 @@
+---
+title: "USstocks"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: pdf_document
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+#### Abstract
+- Abstract
+
+## Introduction
+- Brief introduction to what's in this package 
+- Highlight interesting components/results
+
+## Data
+- How to access this data?
+- Describe where the data came from
+- Describe how we "filtered" out the outliers
+
+## Cool things
+- Looking at performance of stocks over time
+- Comparing different stocks 
+- Looking at stocks' stability over time 
+
+- Stock Analysis: time-series, simple-moving averages, moving average cross-over with buffer, resistance bands
+- Perhaps running regression?  
+
+- Visuals of the stuff above (ggplot2)
+- fanplot?
+
+## Summary
+
+## Bibliography 
