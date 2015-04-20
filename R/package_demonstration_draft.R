@@ -52,7 +52,9 @@ stocks  %>% group_by(v.date)  %>%
   ggplot(aes(v.date, sd_ret)) + geom_point()
 
 ## We can use the following command to examine these outliers
-stocks  %>% 
+x <- stocks
+x <- filter(x, tret <= 40)
+x  %>% 
   select(-id) %>% 
   filter(row_number(desc(tret)) < 10) %>% 
   arrange(desc(tret))
@@ -61,9 +63,11 @@ stocks  %>%
 stocks  %>% filter(tret > 50) %>% arrange(id)
 
 ##Creating a local variable, and then we can mess around with the local variables by deleting outliers
-unwanted <- filter(stocks, tret > 50)
 x <- stocks
-x <- filter(x, ! symbol %in% unwanted$symbol)
+x <- filter(x, tret <= 50)
+#unwanted <- filter(stocks, tret > 50)
+#x <- stocks
+#x <- filter(x, ! symbol %in% unwanted$symbol)
 
 ##Looking at the new standard deviation plot, we've removed a lot of outliers 
 x  %>% group_by(v.date)  %>% 
