@@ -8,6 +8,7 @@ To get started:
 ```
 library(USstocks)
 data(stocks)
+head(stocks)
 ```
 
 #More to come...
