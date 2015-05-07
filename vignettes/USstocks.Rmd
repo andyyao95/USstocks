@@ -19,7 +19,25 @@ vignette: >
 ## Data
 - How to access this data?
 - Describe where the data came from
-- Describe how we "filtered" out the outliers
+- Describe how we "filtered" out the outliers  
+
+USstocks data frame contains the the following variables, which can be viewed by calling: `names(stocks)`: 
+
+- "id" : unique security identifier (randomly generated?)
+- "symbol" : stock exchange ticker
+- "v.date" : date of observation
+- "price.unadj" : unadjusted price
+- "price" : price (adjusted)
+- "volume.unadj" : unadjusted volume
+- "volume": volume (adjusted)
+- "tret" : total returns (how is it defined?)
+- "m.sec" : sector to which the stock belongs
+- "m.ind" : industry to which the stock belongs
+- "name" : company name
+- "year" : year 
+- "cap.usd" : market capitalization (of the year)
+- "top.1500" : boolean indicating whether the stock is part of the top 1500 performing in that year
+
 
 ## Cool things
 - Looking at performance of stocks over time
@@ -34,69 +52,7 @@ vignette: >
 
 ## Removing Outliers 
 ```{r, eval = FALSE}
-#Removing the outliers 
 
-#1. Looking at stock with total return (daily) > 50%
-
-unwanted <- stocks %>% filter(tret > 50)
-
-#getting all the companies with atleast 1 date of tret > 50%
-names <- unique(unwanted$name)
-
-#Looking at them individually
-
-#1. CHATHAM 
-stocks %>% filter(name == names[1]) %>% arrange(v.date)
-stocks %>% filter(name == names[1]) %>% arrange(desc(tret)) %>% dim
-stocks <- filter(stocks, name != "CHATHAM CORP-DE")
-#clearly, outlier, total.return in 1998, extremely low volume ==> REMOVE ALL 
-
-#2. STRATOSPHER CORP
-stocks %>% filter(name == names[2]) %>% arrange(desc(tret)) %>% head
-stocks %>% filter(name == names[2]) %>% arrange(desc(tret)) %>% dim
-stocks <- filter(stocks, (name != "STRATOSPHERE CORP") | (v.date != "1998-11-24")) 
-## logical OR works better because if 1st condition evaluations to true, then it doesn't need to check second condition
-#seems like, only 1 day is an outlier, everything else is good ==> REMOVE ONLY THE OUTLIER
-
-#3. CYCLELOGIC INC
-stocks %>% filter(name == names[3]) %>% arrange(desc(tret)) %>% head
-stocks %>% filter(name == names[3]) %>% arrange(desc(tret)) %>% dim
-stocks <- filter(stocks, (name != "CYCLELOGIC INC") | (v.date != "2002-06-07")) 
-stocks <- filter(stocks, (name != "CYCLELOGIC INC") | (v.date != "2003-08-26")) 
-#seems like, only 2 days are outliers, everything else is good ==> REMOVE ONLY THE OUTLIER
-
-#4. 
-stocks %>% filter(name == names[4]) %>% arrange(desc(tret)) %>% head
-stocks %>% filter(name == names[4]) %>% arrange(desc(tret)) %>% dim 
-stocks <- filter(stocks, (name != "METRICOM INC") | (v.date != "2003-12-04")) 
-#seems like, only 1 day is an outlier, everything else is good ==> REMOVE ONLY THE OUTLIER
-
-#5. 
-stocks %>% filter(name == names[5]) %>% arrange(desc(tret)) %>% head
-stocks %>% filter(name == names[5]) %>% arrange(desc(tret)) %>% dim 
-stocks <- filter(stocks, (name != "MARCHFIRST INC") | (v.date != "2003-11-07")) 
-#REMOVE ONLY THE OUTLIER
-
-#6. ####???????? what to do?
-stocks %>% filter(name == names[6]) %>% arrange(desc(tret)) %>% head
-stocks %>% filter(name == names[6]) %>% arrange(desc(tret)) %>% dim 
-
-#7. ##what to do?
-stocks %>% filter(name == names[7]) %>% arrange(desc(tret)) %>% head
-stocks %>% filter(name == names[7]) %>% arrange(desc(tret)) %>% dim 
-
-
-
-#Looking at the plot of total returns
-#stocks %>% ggplot(aes(v.date, tret)) + geom_point()
-#Filtering out total daily return > 50 
-#stocks <- stocks %>% filter(tret <= 50)
-
-#Alternatively: 
-#unwanted <- filter(stocks, tret > 50)
-#x <- stocks
-#x <- filter(x, ! symbol %in% unwanted$symbol)
-```
 
 ## Summary
 

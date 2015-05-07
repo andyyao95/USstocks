@@ -1,0 +1,151 @@
+% !TeX root = RJwrapper.tex
+\title{US Stocks}
+\author{by Duncan Cummings, David Kane and Andy Yu Zhu Yao}
+
+\maketitle
+
+\abstract{
+An abstract of less than 150 words.
+}
+
+Introductory section which may include references in parentheses
+\citep{Kane}, or cite a reference such as \citet{Kane} in the text.
+
+\section{Section title in sentence case}
+
+This section may contain a figure such as Figure~\ref{figure:rlogo}.
+
+\begin{figure}[htbp]
+  \centering
+  \caption{The logo of R.}
+  \label{figure:rlogo}
+\end{figure}
+
+\section{Getting Started}
+
+\begin{example}
+  install_github("yuzhuyao/USstocks")
+  library(USstocks)
+  data(stocks)
+\end{example}
+
+\section{The US Stocks Data}
+
+\begin{tabular}{|r|l|}
+  \hline
+  \multicolumn{2}{|c|}{Variables and Meaning} \\
+  \hline
+  "id" & unique security identifier (randomly generated?) \\
+  "symbol" & stock exchange ticker \\ 
+  "v.date" & date of observation \\ 
+  "price.unadj" & unadjusted price \\ 
+  "price" & price (adjusted) \\ 
+  "volume.unadj" & unadjusted volume \\ 
+  "volume"& volume (adjusted) \\ 
+  "tret" & total returns (how is it defined?) \\ 
+  "m.sec" & sector to which the stock belongs \\ 
+  "m.ind" & industry to which the stock belongs \\
+  "name" & company name \\
+  "year" & year \\
+  "cap.usd" & market capitalization (of the year) \\ 
+  "top.1500" & boolean indicating whether the stock is part of the top 1500 performing in that year \\
+  \hline
+\end{tabular}
+
+\section{Cleaning Up the Original Stocks Dataset}
+
+In our examination of the original stocks dataset(ws.data from Kane Capital), we found certain outliers. Some of these outlying observations may have been due to data-entry error, and some other may be caused by external factors (e.g. company fraud). Either way, for all intents and purposes of this package, we decided that it was best for the user to perform stock analysis without having to worry about these questionable outliers. In addition, we cross-validated the outlier results with historical data. A complete and detailed audit trail could be found on our github, but here, we summarize the list of stocks we removed and the reason(s) for their removal: \\
+
+
+\begin{tabular}{ | p{5cm} | p{4cm} | p{4cm} |}
+    \hline
+    Name of Company & Individual/Everything* & Reason for Removal \\ \hline
+    CHATHAM CORP-DE & Everything & Unreasonably high return, extremely low trade volume \\ \hline
+    STRATOSPHERE CORP & Individual & Unreasonably high return \\ \hline
+    MFN FINANCIAL CORP & Individual & Unreasonably high return, extremely low trade volume \\ \hline
+    CYCLELOGIC INC & b & c \\ \hline
+    PTV INC & b & c \\ \hline
+    METRICOM INC & b & c \\ \hline
+    LORAL SPACE \& COMMUNICATIONS & b & c \\ \hline
+    MARCHFIRST INC & b & c \\ \hline
+    RHYTHMS NETCONNECTIONS INC & b & c \\ \hline
+    CLARENT CORP & b & c \\ \hline
+    LUMINANT WORLDWIDE CORP & b & c \\ \hline
+    CKX INC & b & c \\ \hline
+    PACIFIC GATEWAY EXCHANGE INC & b & c \\ \hline
+    USINTERNETWORKING INC & b & c \\ \hline
+    GADZOOX NETWORKS INC & b & c \\ \hline
+    ACCRUE SOFTWARE INC & b & c \\ \hline
+    WEBVAN GROUP INC & b & c \\ \hline
+    SCIENT INC & b & c \\ \hline
+    ENGAGE INC & b & c \\ 
+    \hline
+\end{tabular}
+*Individual means that only the questionable outliers on particular days were removed. Everything means that every stock from that company was removed. \\
+\newline
+Having cleaned up our stocks data, we are now ready to dive into the USstocks data and explore!
+
+
+
+\section{Playing with the Data(I): Exploring the Data / Plotting}
+
+Let's get started with looking at IBM's stock from 1998 to 2007. We can do this by calling:
+
+
+
+\section{Playing with the Data(II): Looking at One Stock in Detail}
+
+\section{Playing with the Data(III): Cross Sector/Industry Volatility Comparison}
+
+\section{Playing with the Data(IV): Let's Buy Some Stocks!}
+
+
+
+
+
+
+
+
+
+
+\section{Another section}
+
+There will likely be several sections, perhaps including code snippets, such as:
+
+\begin{example}
+  x <- 1:10
+  result <- myFunction(x)
+\end{example}
+
+
+
+
+
+
+
+
+
+
+\section{Summary}
+
+This file is only a basic article template. For full details of \emph{The R Journal} style and information on how to prepare your article for submission, see the \href{http://journal.r-project.org/latex/RJauthorguide.pdf}{Instructions for Authors}.
+
+\bibliography{Kane}
+
+\address{Author One\\
+  Affiliation\\
+  Address\\
+  Country\\}
+\email{author1@work}
+
+\address{Author Two\\
+  Affiliation\\
+  Address\\
+  Country\\}
+\email{author2@work}
+
+\address{Author Three\\
+  Affiliation\\
+  Address\\
+  Country\\}
+\email{author3@work}
