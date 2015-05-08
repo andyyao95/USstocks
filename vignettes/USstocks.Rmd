@@ -88,7 +88,7 @@ stocks %% filter(symbol == "MSFT", year == 2002)
 stocks %>%
   filter(symbol == "IBM") %>%
   arrange(v.date) %>%
-  ggplot() + geom_point(aes(x = v.date, y = price.unadj, shape = "price unadjusted", colour = "price unadjusted")) + geom_point(aes(x = v.date, y = price, shape = "price", colour = "price")) 
+  ggplot() + geom_point(aes(x = v.date, y = price.unadj, shape = "price unadjusted", colour = "price unadjusted"))
 
 ##Example of Key Statistics
 stocks %>% 
@@ -96,7 +96,7 @@ stocks %>%
   summarize(mean_volume = mean(volume))
 
 stocks %>%  
-  filter(symbol == "MSFT") %>%
+  filter(symbol == "IBM") %>%
   summarise_each(funs(mean, median), volume, volume.unadj, price, price.unadj)
 
 ###If you only want certain parts of the stock, it is very easy to do 

@@ -4,7 +4,7 @@
 \docType{package}
 \title{
 What the package does (short line)
-~~ package title ~~
+~~ USstocks ~~
 }
 \description{
 More about what it does (maybe more than one line)
